@@ -8,7 +8,7 @@ const ScrollingRoad = () => {
     <div className="w-full h-screen grid grid-cols-[1fr_3fr_1fr]">
       <div className="absolute top-0 left-1/2 transform -translate-x-1/2 z-10 h-11 w-full bg-gray-800"></div>
       <img
-        className="absolute top-0 left-1/2 transform -translate-x-1/2 z-10 h-60"
+        className="absolute top-5 sm:top-0 left-1/2 transform -translate-x-1/2 z-10 h-32 sm:h-60"
         src="./car-mirror.png"
         alt="Mirror"
       />
