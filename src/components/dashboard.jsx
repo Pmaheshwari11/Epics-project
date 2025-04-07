@@ -1,18 +1,28 @@
 import React, { useState, useEffect } from "react";
+import { useWebSocket } from "../websockets";
 
 const Dashboard = () => {
   const [potHole, setPotHole] = useState(false);
+  const { socket, connected } = useWebSocket();
 
   useEffect(() => {
-    const interval = setInterval(() => {
+    if (!connected || !socket) return;
+
+    const handleAlarm = () => {
+      console.log("🚨 Alarm triggered!");
       setPotHole(true);
+
       setTimeout(() => {
         setPotHole(false);
-      }, 5000);
-    }, 10000);
+      }, 3000);
+    };
 
-    return () => clearInterval(interval); // Cleanup on unmount
-  }, []);
+    socket.on("alarm", handleAlarm);
+
+    return () => {
+      socket.off("alarm", handleAlarm);
+    };
+  }, [connected, socket]);
 
   return (
     <div className="absolute z-10 bottom-0 left-0 w-full h-auto bg-gray-800 flex justify-around items-start px-6 sm:px-16 py-4">
